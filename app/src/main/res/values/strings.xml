@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">TEST_2018</string>
+    <string name="app_name">Weather Report</string>
+    <string name="location_onoff">Location</string>
+    <string name="cityHint">Enter City</string>
 </resources>
