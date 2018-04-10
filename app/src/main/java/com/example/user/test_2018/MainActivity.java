@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION=123;
     final long MIN_TIME = 5000;
     // Distance between location updates (1000m or 1km)
-    final float MIN_DISTANCE = 1000;
+    final float MIN_DISTANCE = 0;
     double longitude;
     double latitude;
 
@@ -57,6 +57,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getLocationPermission() {
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        mLocationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+                longitude = location.getLongitude();
+                latitude = location.getLatitude();
+            }
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                //Log.d("Clima", "onProviderDisabled() callback received");
+            }
+
+        };
     /*
      * Request location permission, so that we can get the location of the
      * device. The result of the permission request is handled by a callback,
@@ -72,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
         mLocationManager.requestLocationUpdates(LOCATION_PROVIDER, MIN_TIME, MIN_DISTANCE, mLocationListener);
+
+
     }
 
     @Override
@@ -95,9 +122,8 @@ public class MainActivity extends AppCompatActivity {
     public void getCurrentLocation()
     {
         if(mLocationPermissionGranted=true) {
-            mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-            mLocationListener = new LocationListener() {
+            /* mLocationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
 
@@ -119,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                     //Log.d("Clima", "onProviderDisabled() callback received");
                 }
 
-            };
+            }; */
 
 
         }
