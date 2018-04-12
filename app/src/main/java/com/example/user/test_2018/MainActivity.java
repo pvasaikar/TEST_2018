@@ -17,16 +17,19 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import android.net.Uri;
 import java.util.List;
 import java.util.Locale;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
@@ -264,10 +267,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateUI(WeatherModelParser wmp)
     {
-        String city=wmp.getCity();
+        //String city=wmp.getCity();
         String temp=wmp.getTemp();
 
         TextView temper= (TextView) findViewById(R.id.temp);
+        TextView wConditions= (TextView) findViewById(R.id.weatherConditions);
+        ImageView wIcon =(ImageView)findViewById(R.id.wIcon);
+        TextView city= (TextView)findViewById(R.id.city);
         temper.setText(temp);
+        city.setText(wmp.getCity());
+        wConditions.setText(wmp.getWeatherCondition());
+        Picasso.with(this)
+                .load("http://openweathermap.org/img/w/"+wmp.getWeatherIcon()+".png")
+                .into(wIcon);
     }
 }
